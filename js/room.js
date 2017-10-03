@@ -4,6 +4,9 @@ var currentStyle = "black";
 var currentRoomRow = 0;
 var currentRoomCol = 0;
 
+var mapWidth = 3;
+var mapHeight = 3;
+
 var currentStage = 0;
 
 // note: letters will be upside down!
@@ -67,19 +70,27 @@ function setRoomColour(){
 
 function move(direction){
 	if(direction=="up"){
-		currentRoomRow += 1;
-		setRoomColour();
+		if(currentRoomRow<(mapHeight-1)){
+			currentRoomRow += 1;
+			setRoomColour();
+		}
 	}
 	if(direction=="down"){
-		currentRoomRow -= 1;
-		setRoomColour();
+		if(currentRoomRow>0){
+			currentRoomRow -= 1;
+			setRoomColour();
+		}
 	}
 	if(direction=="left"){
-		currentRoomCol -= 1;
-		setRoomColour();
+		if(currentRoomCol>0){
+			currentRoomCol -= 1;
+			setRoomColour();
+		}
 	}
 	if(direction=="right"){
-		currentRoomCol += 1;
-		setRoomColour();
+		if(currentRoomCol<(mapWidth-1)){
+			currentRoomCol += 1;
+			setRoomColour();
+		}
 	}
 }	
