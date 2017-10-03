@@ -28,6 +28,16 @@ var code = [
   ]
 ];
 
+function showMe(x){
+	document.getElementById(x).style.display = 'inline';
+}
+
+function hideMe(x){
+	document.getElementById(x).style.display = 'none';
+}
+
+
+
 function switchToBlack(){
 	document.body.style.setProperty('--fg',"white");
 	document.body.style.setProperty('--bg',"black");
@@ -63,9 +73,37 @@ function start(){
 }
 
 function setRoomColour(){
+
+	console.log("Room: row:"+currentRoomRow+", col:"+currentRoomCol)
+
 	// look up current sytle
 	currentStyle = ["white",'black'][code[currentStage][currentRoomRow][currentRoomCol]];
 	setRoomStyle();
+
+	if(currentRoomCol>0){
+		showMe("exitLeft");
+	} else{
+		hideMe("exitLeft");
+	}
+
+	if(currentRoomCol<(mapWidth-1)){
+		showMe("exitRight");
+	} else{
+		hideMe("exitRight");
+	}
+
+	if(currentRoomRow>0){
+		showMe("exitDown");
+	} else{
+		hideMe("exitDown");
+	}
+
+	if(currentRoomRow<(mapHeight-1)){
+		showMe("exitUp");
+	} else{
+		hideMe("exitUp");
+	}
+
 }
 
 function move(direction){
