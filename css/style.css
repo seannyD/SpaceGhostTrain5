@@ -1,0 +1,135 @@
+:root {
+    --fg:#000000;
+    --bg:#FFFFFF;
+}
+
+body {
+	background-color: var(--bg);
+}
+
+#map {
+	border: solid;
+    color: var(--bg);
+}
+
+#room {
+	position: absolute;
+	top: 20%;
+	left:0%;
+	width: 100%;
+	height: 80%;
+}
+
+#walls {
+	position: absolute;
+	top: 5%;
+	left: 5%;
+	width: 90%;
+	height: 90%;
+	border: var(--fg);
+	border-style: solid;
+	border-width: 5px;
+}
+
+#exitUp {
+	position: absolute;
+	top: 5%;
+	left: 45%;
+	width: 10%;
+	height: 10%;
+	background-color: var(--bg);
+}
+
+
+#exitDown {
+	position: absolute;
+	top: 90%;
+	left: 45%;
+	width: 10%;
+	height: 10%;
+	background-color: var(--bg);
+}
+
+
+#exitLeft {
+	position: relative;
+	top: 45%;
+	left: 5%;
+	width: 10%;
+	height: 10%;
+	background-color: var(--bg);
+}
+
+
+#exitRight {
+	position: absolute;
+	top: 45%;
+	left: 90%;
+	width: 10%;
+	height: 10%;
+	background-color: var(--bg);
+}
+
+#altar {
+	position: absolute;
+	top: 60%;
+	left: 40%;
+	padding-top: 15%;
+	width: 15%;
+	border-radius: 50%;
+	border-style: solid;
+	border-width: 10px;
+	background-color: var(--bg);
+	border-color: var(--fg);
+}
+
+#message {
+	position: absolute;
+	top: 20%;
+	left: 20%;
+	width: 60%;
+	height: 30%;
+	color: var(--fg);
+	text-align: center;
+}
+
+
+
+.arrow-up {
+  width: 0; 
+  height: 0; 
+  border-left: 30px solid transparent;
+  border-right: 30px solid transparent;
+  border-bottom: 30px solid var(--fg);
+  background-color: var(--bg);
+}
+
+.arrow-down {
+  width: 0; 
+  height: 0; 
+  border-left: 30px solid transparent;
+  border-right: 30px solid transparent;
+  
+  border-top: 30px solid var(--fg);
+  background-color: var(--bg);
+}
+
+.arrow-right {
+  width: 0; 
+  height: 0; 
+  border-top: 30px solid transparent;
+  border-bottom: 30px solid transparent;
+  
+  border-left: 30px solid var(--fg);
+  background-color: var(--bg);
+}
+
+.arrow-left {
+  width: 0; 
+  height: 0; 
+  border-top: 30px solid transparent;
+  border-bottom: 30px solid transparent; 
+  
+  border-right: 30px solid var(--fg); 
+  background-color: var(--bg);
+}
