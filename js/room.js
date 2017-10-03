@@ -132,3 +132,9 @@ function move(direction){
 		}
 	}
 }	
+
+
+function playVideo(){
+	showMe("video");
+	document.getElementById("videoPlayer").play();
+}
