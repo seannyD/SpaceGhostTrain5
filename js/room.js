@@ -9,21 +9,37 @@ var mapHeight = 3;
 
 var currentStage = 0;
 
+// loki, occult
 // note: letters will be upside down!
 var code = [
-  [
-	[1,1,1],
-	[0,1,0],
-	[0,1,0]	
-  ],
   [
 	[1,1,1],
 	[1,0,1],
 	[1,1,1]	
   ],
   [
+	[1,1,1],
 	[1,0,0],
+	[1,1,1]	
+  ],
+  [
+	[1,1,1],
 	[1,0,0],
+	[1,1,1]	
+  ],
+  [
+	[1,1,1],
+	[1,0,0],
+	[1,0,1]	
+  ],
+  [
+	[1,1,1],
+	[1,0,0],
+	[1,0,0]	
+  ],
+  [
+	[0,1,0],
+	[0,1,0],
 	[1,1,1]	
   ]
 ];
@@ -104,6 +120,21 @@ function setRoomColour(){
 		hideMe("exitUp");
 	}
 
+	setMapColour();
+
+}
+
+function setMapColour(){
+	for(var i=0;i<mapWidth;++i){
+		for(var j=0;j<mapHeight;++j){
+			var r = document.getElementById("m"+i+""+j);
+			if(i==currentRoomCol & j==currentRoomRow){
+				r.style.backgroundColor = "red";
+			} else{
+				r.style.backgroundColor = "var(--bg)"
+			}
+		}
+	}
 }
 
 function move(direction){
