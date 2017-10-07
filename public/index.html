@@ -1,44 +1,43 @@
 <html>
-<head>
-<link rel="stylesheet" type="text/css" href="css/style.css"> 
-<script src="js/room.js"></script>
-</head>
-<body onload="start()">
-<div id="map"></div>
+	<head>
+		<title>A Creepy Mansion</title>
+		<link rel="stylesheet" type="text/css" href="css/style.css"> 
+		<script src="js/client.js"></script>
+		<script src="js/room.js"></script>
+	</head>
+	<body onload="start()">
+		<div id="map"></div>
 
-<div id="room">
-	<div id="walls"></div>
-	<div id="exitUp" onclick="move('up')">
-		<div class="arrow-up"></div>
-	</div>
-	<div id="exitDown" onclick="move('down')">
-		<div class="arrow-down"></div>
-	</div>
-	<div id="exitLeft" onclick="move('left')">
-		<div class="arrow-left"></div>
-	</div>
-	<div id="exitRight" onclick="move('right')">
-		<div class="arrow-right"></div>
-	</div>
-	<div id="altar"></div>
-	<div id="message">The altar is empty.</div>
-</div>
+		<div id="room">
+			<div id="walls"></div>
+			<div id="exitUp" onclick="move('up')">
+				<div class="arrow-up"></div>
+			</div>
+			<div id="exitDown" onclick="move('down')">
+				<div class="arrow-down"></div>
+			</div>
+			<div id="exitLeft" onclick="move('left')">
+				<div class="arrow-left"></div>
+			</div>
+			<div id="exitRight" onclick="move('right')">
+				<div class="arrow-right"></div>
+			</div>
+			<div id="altar"></div>
+			<div id="message">The altar is empty.</div>
+		</div>
 
-<div id="map">
-	<div class="maproom" id="m02"><div class="maproomaltar"></div></div><div class="maproom" id="m12"><div class="maproomaltar"></div></div><div class="maproom" id="m22"><div class="maproomaltar"></div></div>
-	<br />
-	<div class="maproom" id="m01"><div class="maproomaltar"></div></div><div class="maproom" id="m11"><div class="maproomaltar"></div></div><div class="maproom" id="m21"><div class="maproomaltar"></div></div>
-	<br />
-	<div class="maproom" id="m00"><div class="maproomaltar"></div></div><div class="maproom" id="m10"><div class="maproomaltar"></div></div><div class="maproom" id="m20"><div class="maproomaltar"></div></div>
-</div>
+		<div id="map">
+			<div class="maproom" id="m02"><div class="maproomaltar"></div></div><div class="maproom" id="m12"><div class="maproomaltar"></div></div><div class="maproom" id="m22"><div class="maproomaltar"></div></div>
+			<br />
+			<div class="maproom" id="m01"><div class="maproomaltar"></div></div><div class="maproom" id="m11"><div class="maproomaltar"></div></div><div class="maproom" id="m21"><div class="maproomaltar"></div></div>
+			<br />
+			<div class="maproom" id="m00"><div class="maproomaltar"></div></div><div class="maproom" id="m10"><div class="maproomaltar"></div></div><div class="maproom" id="m20"><div class="maproomaltar"></div></div>
+		</div>
 
-<div id="video" style="display:none">
-  <video id="videoPlayer" width="100%" height="100%">
-    <source id="videoSource" src="videos/1.mp4" type="video/mp4">
-  </video>
-</div>
-
-
-</body>
-
+		<div id="video" style="display:none">
+			<video id="videoPlayer" width="100%" height="100%">
+				<source id="videoSource" src="videos/1.mp4" type="video/mp4">
+			</video>
+		</div>
+	</body>
 </html>
