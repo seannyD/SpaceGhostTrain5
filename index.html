@@ -1,10 +1,19 @@
 <html>
 <head>
+<link rel="stylesheet" type="text/css" href="css/normalize.css"> 
 <link rel="stylesheet" type="text/css" href="css/style.css"> 
 <script src="js/room.js"></script>
 </head>
 <body onload="start()">
-<div id="map"></div>
+
+
+<div id="IntroScreen" onclick="startGame()">
+	<img id="CoverImage" src="images/Cover.png">
+</div>
+
+<div id="EndScreen" onclick="startGame()">
+	<img id="EndImage" src="images/End.png">
+</div>
 
 <div id="room">
 	<div id="walls"></div>
@@ -22,6 +31,7 @@
 	</div>
 	<div id="altar"></div>
 	<div id="message">The altar is empty.</div>
+	<input id="password" type="text">
 </div>
 
 <div id="map">

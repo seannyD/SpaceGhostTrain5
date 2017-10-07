@@ -2,14 +2,23 @@
 
 var currentStyle = "black";
 var currentRoomRow = 0;
-var currentRoomCol = 0;
+var currentRoomCol = 1;
 
 var mapWidth = 3;
 var mapHeight = 3;
 
 var currentStage = 0;
 
-// loki, occult
+var gameStageMiddle = false;
+
+
+var roomMessages = [
+	["Room0", "Room1", "Room2"],
+	["Room3", "Room4", "Room5"],
+	["Room6", "Room7", "Room8"]
+]
+
+var password = "occult";
 // note: letters will be upside down!
 var code = [
   [
@@ -52,7 +61,14 @@ function hideMe(x){
 	document.getElementById(x).style.display = 'none';
 }
 
+function startGame(){
+	hideMe("IntroScreen");
+	hideMe("IntroScreen");
 
+}
+
+
+// Style functions
 
 function switchToBlack(){
 	document.body.style.setProperty('--fg',"white");
@@ -83,9 +99,40 @@ function setRoomStyle(){
 }
 
 function start(){
+	
+    var pw = document.getElementById("password");
+    pw.onkeyup = function(e){
+      if(e.keyCode==13){
+      	if(pw.value.toLowerCase()==password){
+      		sendWinState();
+      		gameStageMiddle = false;
+      		document.getElementById("message").innerHTML = "You hear a sound ...";
+      	} else{
+      		pw.value = "";
+      		document.getElementById("message").innerHTML = "Nothing happened";
+      		setTimeout(setMessage(), 2000);
+      	}
+      }
+  	};
+
+
+
 	console.log("start");
 	//setInterval("toggleStyle()", 1000);
 	setRoomColour();
+
+	document.getElementById("IntroScreen").addEventListener("touchend", startGame(), false);
+	document.getElementById("CoverImage").addEventListener("touchend", startGame(), false);
+	showMe("IntroScreen");
+	hideMe("password");
+	hideMe("EndScreen");
+}
+
+function setCurrentStage(n){
+	if(gameStageMiddle){
+		currentStage = n;
+		setRoomColour();
+	}
 }
 
 function setRoomColour(){
@@ -120,8 +167,20 @@ function setRoomColour(){
 		hideMe("exitUp");
 	}
 
+	setMessage();
+
 	setMapColour();
 
+	if(currentRoomRow == 2 & currentRoomCol==2){
+		showMe("password");
+	} else{
+		hideMe("password");
+	}
+
+}
+
+function setMessage(){
+	document.getElementById("message").innerHTML = roomMessages[currentRoomRow][currentRoomCol];
 }
 
 function setMapColour(){
@@ -165,7 +224,21 @@ function move(direction){
 }	
 
 
+
+
+
+      
+
+function sendWinState(){
+	// overridden by server script
+}
+
+
+
+
 function playVideo(){
+	hideMe("password");
+	gameStageMiddle = false;
 	showMe("video");
 	document.getElementById("videoPlayer").play();
 }
