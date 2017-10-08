@@ -2,7 +2,7 @@ const express = require('express');
 const http = require('http');
 const WebSocket = require('ws');
 
-const Mansion = require('./mansion');
+const Mansion = require('./lib/mansion');
 
 const app = express();
 
