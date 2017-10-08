@@ -1,5 +1,3 @@
-
-
 var currentStyle = "black";
 var currentRoomRow = 0;
 var currentRoomCol = 1;

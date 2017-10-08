@@ -1,54 +1,75 @@
 <html>
-<head>
-<link rel="stylesheet" type="text/css" href="css/normalize.css"> 
-<link rel="stylesheet" type="text/css" href="css/style.css"> 
-<script src="js/room.js"></script>
-</head>
-<body onload="start()">
+	<head>
+		<title>A Creepy Mansion</title>
+		<link rel="stylesheet" type="text/css" href="css/normalize.css"> 
+		<link rel="stylesheet" type="text/css" href="css/style.css"> 
+		<script src="js/client.js"></script>
+	</head>
+	<body class="bg" onload="SGT.start()">
+		<div id="IntroScreen" onclick="startGame()">
+			<img id="CoverImage" src="images/Cover.png">
+		</div>
 
+		<div id="EndScreen" onclick="startGame()">
+			<img id="EndImage" src="images/End.png">
+		</div>
 
-<div id="IntroScreen" onclick="startGame()">
-	<img id="CoverImage" src="images/Cover.png">
-</div>
+		<div id="room">
+			<div id="walls" class="fg-border"></div>
 
-<div id="EndScreen" onclick="startGame()">
-	<img id="EndImage" src="images/End.png">
-</div>
+			<div id="exit-up" class="bg" onclick="SGT.move('up')">
+				<div class="arrow-up"></div>
+			</div>
+			<div id="exit-down" class="bg" onclick="SGT.move('down')">
+				<div class="arrow-down"></div>
+			</div>
+			<div id="exit-left" class="bg" onclick="SGT.move('left')">
+				<div class="arrow-left"></div>
+			</div>
+			<div id="exit-right" class="bg" onclick="SGT.move('right')">
+				<div class="arrow-right"></div>
+			</div>
+			<div id="altar" class="fg"></div>
+			<div id="message" class="fg-text">You see an empty altar.</div>
+			<input id="password" type="text">
+		</div>
 
-<div id="room">
-	<div id="walls"></div>
-	<div id="exitUp" onclick="move('up')">
-		<div class="arrow-up"></div>
-	</div>
-	<div id="exitDown" onclick="move('down')">
-		<div class="arrow-down"></div>
-	</div>
-	<div id="exitLeft" onclick="move('left')">
-		<div class="arrow-left"></div>
-	</div>
-	<div id="exitRight" onclick="move('right')">
-		<div class="arrow-right"></div>
-	</div>
-	<div id="altar"></div>
-	<div id="message">The altar is empty.</div>
-	<input id="password" type="text">
-</div>
+		<div id="map">
+			<div class="map-room bg fg-border" id="map-room-0-0">
+				<div class="map-room-altar fg"></div>
+			</div>
+			<div class="map-room bg fg-border" id="map-room-0-1">
+				<div class="map-room-altar fg"></div>
+			</div>
+			<div class="map-room bg fg-border" id="map-room-0-2">
+				<div class="map-room-altar fg"></div>
+			</div>
 
-<div id="map">
-	<div class="maproom" id="m02"><div class="maproomaltar"></div></div><div class="maproom" id="m12"><div class="maproomaltar"></div></div><div class="maproom" id="m22"><div class="maproomaltar"></div></div>
-	<br />
-	<div class="maproom" id="m01"><div class="maproomaltar"></div></div><div class="maproom" id="m11"><div class="maproomaltar"></div></div><div class="maproom" id="m21"><div class="maproomaltar"></div></div>
-	<br />
-	<div class="maproom" id="m00"><div class="maproomaltar"></div></div><div class="maproom" id="m10"><div class="maproomaltar"></div></div><div class="maproom" id="m20"><div class="maproomaltar"></div></div>
-</div>
+			<div class="map-room bg fg-border" id="map-room-1-0">
+				<div class="map-room-altar fg"></div>
+			</div>
+			<div class="map-room bg fg-border" id="map-room-1-1">
+				<div class="map-room-altar fg"></div>
+			</div>
+			<div class="map-room bg fg-border" id="map-room-1-2">
+				<div class="map-room-altar fg"></div>
+			</div>
 
-<div id="video" style="display:none">
-  <video id="videoPlayer" width="100%" height="100%">
-    <source id="videoSource" src="videos/1.mp4" type="video/mp4">
-  </video>
-</div>
+			<div class="map-room bg fg-border" id="map-room-2-0">
+				<div class="map-room-altar fg"></div>
+			</div>
+			<div class="map-room bg fg-border" id="map-room-2-1">
+				<div class="map-room-altar fg"></div>
+			</div>
+			<div class="map-room bg fg-border" id="map-room-2-2">
+				<div class="map-room-altar fg"></div>
+			</div>
+		</div>
 
-
-</body>
-
+		<div id="video" style="display:none">
+			<video id="video-player" width="100%" height="100%">
+				<source id="video-source" src="videos/1.mp4" type="video/mp4">
+			</video>
+		</div>
+	</body>
 </html>
