@@ -7,6 +7,14 @@ var SGT = window.SGT || {};
 	var client;
 	var clearMessageTimer;
 
+	// It's easier to rotate vidoes by 90 degrees than 270,
+	// so this is the position that each video should be in:
+	var roomVideoNumbers = [
+		["7","4","1",],
+		["8","5","2",],
+		["9","6","3",]
+		];
+
 	function initialize() {
 		elements = {
 			'introScreen': document.getElementById('IntroScreen'),
@@ -15,6 +23,8 @@ var SGT = window.SGT || {};
 			'message': document.getElementById('message'),
 			'password': document.getElementById('password'),
 			'map': document.getElementById('map'),
+			'video': document.getElementById('video'),
+			'videoPlayer': document.getElementById('video-player'),
 		};
 
 		client = new SGT.Client({
@@ -23,6 +33,8 @@ var SGT = window.SGT || {};
 			invalidPassword: handleInvalidPassword,
 			won: handleWin,
 		});
+
+		elements.videoPlayer.addEventListener('ended',videoEnded,false);
 
 		watchPassword();
 	}
@@ -87,12 +99,35 @@ var SGT = window.SGT || {};
 
 	function handleWin() {
 		clearPassword();
-		alert('You win!');
+		playVideo();
+	}
+
+	function playVideo() {
+		// the video that relates to the room
+		var vidNum = roomVideoNumbers[client.room.row][client.room.col];
+		// change the video source
+		var video = elements.videoPlayer;
+		var sources = video.getElementsByTagName('source');
+    	sources[0].src = vidNum+".mp4";
+    	sources[1].src = vidNum+".ogg";
+
+    	// Load the video and show it
+    	video.load();
+    	// elements.video is the surrounding div for the player
+    	toggleHidden(elements.video, false);
+    	video.play();
+	}
+
+	function videoEnded(){
+		toggleHidden(elements.video, true);
+		toggleHidden(elements.endScreen, false);
+		// TODO: Disconnect from server?
 	}
 
 	function startGame() {
 		toggleHidden(elements.introScreen, true);
 		toggleHidden(elements.endScreen, true);
+		toggleHidden(elements.video, true);
 	}
 
 	function move(dir) {
