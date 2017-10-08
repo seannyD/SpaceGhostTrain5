@@ -18,6 +18,10 @@ var SGT = window.SGT || {};
 		this._send({ name: 'move', dir: dir });
 	};
 
+	Client.prototype.guessPassword = function(guess) {
+		this._send({ name: 'password', password: guess });
+	}
+
 	Client.prototype._send = function(msg) {
 		var msgJson = JSON.stringify(msg);
 		this.ws.send(msgJson);
@@ -31,6 +35,14 @@ var SGT = window.SGT || {};
 	Client.prototype.setRoomColour = function(isFilled) {
 		this.isFilled = isFilled;
 		this._emit('colourChanged', isFilled);
+	}
+
+	Client.prototype.notifyOfInvalidPassword = function() {
+		this._emit('invalidPassword');
+	}
+
+	Client.prototype.notifyOfWin = function() {
+		this._emit('won');
 	}
 
 	Client.prototype._handleMessage = function(ev) {
@@ -53,6 +65,8 @@ var SGT = window.SGT || {};
 		switch (cmd.name) {
 			case 'move':   return new MoveMessage(cmd);
 			case 'colour': return new ColourMessage(cmd);
+			case 'invalid-password': return new InvalidPasswordMessage();
+			case 'win': return new WinMessage();
 		}
 	}
 
@@ -75,60 +89,19 @@ var SGT = window.SGT || {};
 		client.setRoomColour(this.isFilled);
 	};
 
-	var MAP_WIDTH = 3;
-	var MAP_HEIGHT = 3;
-	var elements;
-	var client;
-
-	function start() {
-		elements = {
-			'room': document.getElementById('room'),
-			'map': document.getElementById('map')
-		};
-
-		client = new Client({
-			roomChanged: handleRoomChange,
-			colourChanged: handleColourChange,
-		});
+	function InvalidPasswordMessage() {
 	}
 
-	function handleRoomChange(newRoom) {
-		setExits(newRoom);
-		setActiveMapRoom(newRoom);
+	InvalidPasswordMessage.prototype.apply = function(client) {
+		client.notifyOfInvalidPassword();
 	}
 
-	function setExits(room) {
-		var roomEl = elements.room;
-		roomEl.classList.toggle('exit-up',    room.row > 0);
-		roomEl.classList.toggle('exit-down',  room.row < MAP_HEIGHT - 1);
-		roomEl.classList.toggle('exit-left',  room.col > 0);
-		roomEl.classList.toggle('exit-right', room.col < MAP_WIDTH - 1);
+	function WinMessage() {
 	}
 
-	function setActiveMapRoom(room) {
-		var roomId = 'map-room-' + room.row + '-' + room.col;
-		var room = document.getElementById(roomId);
-		clearActiveMapRooms();
-		room.classList.add('active');
+	WinMessage.prototype.apply = function(client) {
+		client.notifyOfWin();
 	}
 
-	function clearActiveMapRooms() {
-		var map = elements.map;
-		map.querySelectorAll('.active').forEach(function(el) {
-			el.classList.remove('active');
-		});
-	}
-
-	function handleColourChange(isFilled) {
-		document.body.classList.toggle('filled', isFilled);
-	}
-
-	function move(dir) {
-		if (client) {
-			client.move(dir);
-		}
-	}
-
-	SGT.start = start;
-	SGT.move = move;
+	SGT.Client = Client;
 })();

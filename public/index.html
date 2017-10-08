@@ -4,13 +4,14 @@
 		<link rel="stylesheet" type="text/css" href="css/normalize.css"> 
 		<link rel="stylesheet" type="text/css" href="css/style.css"> 
 		<script src="js/client.js"></script>
+		<script src="js/game.js"></script>
 	</head>
-	<body class="bg" onload="SGT.start()">
-		<div id="IntroScreen" onclick="startGame()">
+	<body class="bg" onload="SGT.initialize()">
+		<div id="IntroScreen" onclick="SGT.startGame()">
 			<img id="CoverImage" src="images/Cover.png">
 		</div>
 
-		<div id="EndScreen" onclick="startGame()">
+		<div id="EndScreen" class="hidden" onclick="SGT.startGame()">
 			<img id="EndImage" src="images/End.png">
 		</div>
 
@@ -31,7 +32,7 @@
 			</div>
 			<div id="altar" class="fg"></div>
 			<div id="message" class="fg-text">You see an empty altar.</div>
-			<input id="password" type="text">
+			<input id="password" class="hidden" type="text">
 		</div>
 
 		<div id="map">

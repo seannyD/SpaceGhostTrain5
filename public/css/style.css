@@ -29,6 +29,10 @@ body.filled .fg { background-color: #000; }
 body.filled .fg-border { border-color: #000; }
 body.filled .fg-text  { color: #000; }
 
+.hidden {
+	display: none;
+}
+
 #room {
 	position: absolute;
 	top: 20%;
