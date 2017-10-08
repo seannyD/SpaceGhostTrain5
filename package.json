@@ -1,0 +1,23 @@
+{
+  "private": true,
+  "name": "spaceghosttrain5",
+  "version": "1.0.0",
+  "description": "Space Ghost Train 5",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/seannyD/SpaceGhostTrain5.git"
+  },
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/seannyD/SpaceGhostTrain5/issues"
+  },
+  "homepage": "https://github.com/seannyD/SpaceGhostTrain5#readme",
+  "dependencies": {
+    "express": "^4.16.1",
+    "ws": "^3.2.0"
+  }
+}
