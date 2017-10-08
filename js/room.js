@@ -102,15 +102,22 @@ function start(){
 	
     var pw = document.getElementById("password");
     pw.onkeyup = function(e){
+      // on pressing enter
       if(e.keyCode==13){
-      	if(pw.value.toLowerCase()==password){
+      	// if password matches
+      	console.log("ENTER");
+      	if(pw.value.toLowerCase().replace(/ /g,'')==password){
       		sendWinState();
       		gameStageMiddle = false;
       		document.getElementById("message").innerHTML = "You hear a sound ...";
       	} else{
+      		console.log("No match");
       		pw.value = "";
+      		pw.blur();
+      		document.getElementById("room").focus();
+      		document.getElementById("room").blur();
       		document.getElementById("message").innerHTML = "Nothing happened";
-      		setTimeout(setMessage(), 2000);
+      		setTimeout("setMessage()", 2000);
       	}
       }
   	};
@@ -237,6 +244,9 @@ function sendWinState(){
 
 
 function playVideo(){
+	// make sure password isn't focussed
+	document.getElementById("room").focus();
+    document.getElementById("room").blur();
 	hideMe("password");
 	gameStageMiddle = false;
 	showMe("video");
