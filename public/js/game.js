@@ -15,6 +15,12 @@ var SGT = window.SGT || {};
 		["9","6","3",]
 		];
 
+	var roomMessages = [
+		["This room is full of foreboding","You feel alone, almost","The big picture on the wall feels important"],
+		["You hear a whisper","The table is empty","You call out, only echoes answer"],
+		["A mirror shows an empty room","Footprints lead east","A book lies on the table. Type a word ..."]
+	];
+
 	function initialize() {
 		elements = {
 			'introScreen': document.getElementById('IntroScreen'),
@@ -53,6 +59,7 @@ var SGT = window.SGT || {};
 		setExits(newRoom);
 		setPasswordVisibility(newRoom);
 		setActiveMapRoom(newRoom);
+		setRoomMessage(newRoom);
 	}
 
 	function setExits(room) {
@@ -78,6 +85,10 @@ var SGT = window.SGT || {};
 		var room = document.getElementById(roomId);
 		clearActiveMapRooms();
 		room.classList.add('active');
+	}
+
+	function setRoomMessage(room){
+		elements.message.innerHTML = roomMessages[room.row][room.col];
 	}
 
 	function clearActiveMapRooms() {
