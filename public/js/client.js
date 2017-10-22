@@ -32,9 +32,10 @@ var SGT = window.SGT || {};
 		this._emit('roomChanged', room);
 	}
 
-	Client.prototype.setRoomColour = function(isFilled) {
+	Client.prototype.setRoomColour = function(isFilled, flash) {
 		this.isFilled = isFilled;
-		this._emit('colourChanged', isFilled);
+		this.flash = flash;
+		this._emit('colourChanged', {isFilled:isFilled, flash:flash});
 	}
 
 	Client.prototype.notifyOfInvalidPassword = function() {
@@ -74,19 +75,21 @@ var SGT = window.SGT || {};
 		this.row = cmd.row;
 		this.col = cmd.col;
 		this.isFilled = cmd.isFilled;
+		this.flash = cmd.flash;
 	}
 
 	MoveMessage.prototype.apply = function(client) {
 		client.setRoom({ row: this.row, col: this.col });
-		client.setRoomColour(this.isFilled);
+		client.setRoomColour(this.isFilled, this.flash);
 	};
 
 	function ColourMessage(cmd) {
 		this.isFilled = cmd.isFilled;
+		this.flash = cmd.flash;
 	}
 
 	ColourMessage.prototype.apply = function(client) {
-		client.setRoomColour(this.isFilled);
+		client.setRoomColour(this.isFilled, this.flash);
 	};
 
 	function InvalidPasswordMessage() {

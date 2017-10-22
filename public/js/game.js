@@ -6,6 +6,8 @@ var SGT = window.SGT || {};
 	var elements;
 	var client;
 	var clearMessageTimer;
+	var clearFlashTimer;
+	var currentFill = false;
 
 	// It's easier to rotate vidoes by 90 degrees than 270,
 	// so this is the position that each video should be in:
@@ -98,8 +100,28 @@ var SGT = window.SGT || {};
 		});
 	}
 
-	function handleColourChange(isFilled) {
+	function handleColourChange(cmd) {
+		var isFilled = cmd.isFilled;
+		var flash = cmd.flash;
 		document.body.classList.toggle('filled', isFilled);
+		if(flash){
+			doFlash(isFilled);
+		}
+	
+	}
+
+	function doFlash(isFilled){
+		currentFill = isFilled;
+		clearFlashTimer = setInterval(function() {
+			document.body.classList.toggle('filled');
+		}, 100);
+
+		setTimeout(function() {
+			// clear the interval
+			clearInterval(clearFlashTimer);
+			// set back to current fill
+			document.body.classList.toggle('filled', currentFill);
+		}, 1100);
 	}
 
 	function handleInvalidPassword() {
