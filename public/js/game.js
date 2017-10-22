@@ -69,6 +69,7 @@ var SGT = window.SGT || {};
 	}
 
 	function isPasswordRoom(room) {
+		console.log(room.row + " "+room.col);
 		return room.row === 2 && room.col === 2;
 	}
 
@@ -108,13 +109,13 @@ var SGT = window.SGT || {};
 		// change the video source
 		var video = elements.videoPlayer;
 		var sources = video.getElementsByTagName('source');
-    	sources[0].src = vidNum+".mp4";
-    	sources[1].src = vidNum+".ogg";
+    	sources[0].src = "videos/"+vidNum+".mp4";
+    	sources[1].src = "videos/"+vidNum+".ogg";
 
     	// Load the video and show it
     	video.load();
     	// elements.video is the surrounding div for the player
-    	toggleHidden(elements.video, false);
+    	document.getElementById("video").style.display="inline";
     	video.play();
 	}
 

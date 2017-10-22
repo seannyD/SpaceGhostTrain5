@@ -175,6 +175,8 @@ body.filled .arrow-right {
 	width:60%;
 	height: 20%;
 	font-size: 80pt;
+	border-color: black;
+	border-width: 2px;
 }
 
 #map {
