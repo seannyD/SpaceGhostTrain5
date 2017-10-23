@@ -16,6 +16,8 @@ wsServer.on('connection', (ws, req) => {
 	mansion.connect(ws);
 });
 
-httpServer.listen(3000, () => {
+const port = process.env.SGT_PORT || 3000;
+
+httpServer.listen(port, () => {
 	console.log('Listening at http://localhost:%d/', httpServer.address().port);
 });
