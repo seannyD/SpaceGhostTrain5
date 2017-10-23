@@ -11,7 +11,7 @@ module.exports = {
 				SGT_PORT: 3000
 			},
 			env_production: {
-				SGT_PORT: 80,
+				SGT_PORT: 8080,
 				NODE_ENV: 'production'
 			}
 		}
