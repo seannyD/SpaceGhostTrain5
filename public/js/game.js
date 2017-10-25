@@ -15,12 +15,24 @@ var SGT = window.SGT || {};
 		["7","4","1",],
 		["8","5","2",],
 		["9","6","3",]
-		];
+	];
 
 	var roomMessages = [
-		["This room is full of foreboding","You feel alone, almost","The big picture on the wall feels important"],
-		["You hear a whisper","The table is empty","You call out, only echoes answer"],
-		["A mirror shows an empty room","Footprints lead east","A book lies on the table. Type a word ..."]
+		[
+			"This room is full of foreboding",
+			"You feel alone, almost",
+			"The big picture on the wall feels important"
+		],
+		[
+			"You hear a whisper",
+			"The table is empty",
+			"You call out, only echoes answer"
+		],
+		[
+			"A mirror shows an empty room",
+			"Footprints lead east",
+			"A book lies on the table. Type a word…"
+		]
 	];
 
 	function initialize() {
@@ -42,7 +54,7 @@ var SGT = window.SGT || {};
 			won: handleWin,
 		});
 
-		elements.videoPlayer.addEventListener('ended',videoEnded,false);
+		elements.videoPlayer.addEventListener('ended', videoEnded, false);
 
 		watchPassword();
 	}
@@ -78,7 +90,6 @@ var SGT = window.SGT || {};
 	}
 
 	function isPasswordRoom(room) {
-		console.log(room.row + " "+room.col);
 		return room.row === 2 && room.col === 2;
 	}
 
@@ -104,7 +115,7 @@ var SGT = window.SGT || {};
 		var isFilled = cmd.isFilled;
 		var flash = cmd.flash;
 		document.body.classList.toggle('filled', isFilled);
-		if(flash){
+		if (flash) {
 			doFlash(isFilled);
 		}
 	
@@ -140,22 +151,21 @@ var SGT = window.SGT || {};
 		// the video that relates to the room
 		var vidNum = roomVideoNumbers[client.room.row][client.room.col];
 		// change the video source
-		var video = elements.videoPlayer;
-		var sources = video.getElementsByTagName('source');
-    	sources[0].src = "videos/"+vidNum+".mp4";
-    	sources[1].src = "videos/"+vidNum+".ogg";
+		var videoPlayer = elements.videoPlayer;
+		var sources = videoPlayer.getElementsByTagName('source');
+		sources[0].src = "videos/"+vidNum+".mp4";
+		sources[1].src = "videos/"+vidNum+".ogg";
 
-    	// Load the video and show it
-    	video.load();
-    	// elements.video is the surrounding div for the player
-    	document.getElementById("video").style.display="inline";
-    	video.play();
+		// Load the video and show it
+		videoPlayer.load();
+		// elements.video is the surrounding div for the player
+		elements.video.style.display = "inline";
+		videoPlayer.play();
 	}
 
 	function videoEnded(){
 		toggleHidden(elements.video, true);
 		toggleHidden(elements.endScreen, false);
-		// TODO: Disconnect from server?
 	}
 
 	function startGame() {
