@@ -240,6 +240,7 @@ body.filled .arrow-right {
 	top: 0px;
 	left: 0px;
 	position: absolute;
+	z-index: 20;
 }
 
 #EndImage {
