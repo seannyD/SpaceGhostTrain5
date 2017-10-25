@@ -5,8 +5,8 @@ var SGT = window.SGT || {};
 	var MAP_HEIGHT = 3;
 	var elements;
 	var client;
-	var clearMessageTimer;
-	var clearFlashTimer;
+	var flashIntervalTimer;
+	var displayMessageTimer;
 	var currentFill = false;
 
 	// It's easier to rotate vidoes by 90 degrees than 270,
@@ -49,7 +49,8 @@ var SGT = window.SGT || {};
 
 		client = new SGT.Client({
 			roomChanged: handleRoomChange,
-			colourChanged: handleColourChange,
+			setRoomColour: handleSetRoomColour,
+			flash: handleFlash,
 			invalidPassword: handleInvalidPassword,
 			won: handleWin,
 		});
@@ -115,34 +116,28 @@ var SGT = window.SGT || {};
 		});
 	}
 
-	function handleColourChange(cmd) {
-		var isFilled = cmd.isFilled;
-		var flash = cmd.flash;
+	function handleSetRoomColour(isFilled) {
+		// Don't do anything if we're in the middle of flashing.
+		if (flashIntervalTimer) return;
 		document.body.classList.toggle('filled', isFilled);
-		if (flash) {
-			doFlash(isFilled);
-		}
-	
 	}
 
-	function doFlash(isFilled){
-		currentFill = isFilled;
-		clearFlashTimer = setInterval(function() {
+	function handleFlash() {
+		flashIntervalTimer = setInterval(function() {
 			document.body.classList.toggle('filled');
 		}, 100);
 
 		setTimeout(function() {
-			// clear the interval
-			clearInterval(clearFlashTimer);
-			// set back to current fill
-			document.body.classList.toggle('filled', currentFill);
+			clearInterval(flashIntervalTimer);
+			flashIntervalTimer = null;
+			handleSetRoomColour(client.room.isFilled);
 		}, 1100);
 	}
 
 	function handleInvalidPassword() {
 		clearPassword();
 		if (isPasswordRoom(client.room)) {
-			flashMessage('Nothing happened');
+			displayMessage('Nothing happened');
 		}
 	}
 
@@ -193,21 +188,21 @@ var SGT = window.SGT || {};
 		passwordEl.blur();
 	}
 
-	function flashMessage(msg, timeout) {
+	function displayMessage(msg, timeout) {
 		const msgEl = elements.message;
 		const prevMsg = msgEl.innerHTML;
 		if (timeout === undefined) {
 			timeout = 2e3;
 		}
 		msgEl.innerHTML = msg;
-		clearMessageTimer = setTimeout(function() {
+		displayMessageTimer = setTimeout(function() {
 			msgEl.innerHTML = prevMsg;
 		}, timeout);
 	}
 
 	function clearPendingMessageChanges() {
-		clearTimeout(clearMessageTimer);
-		clearMessageTimer = null;
+		clearTimeout(displayMessageTimer);
+		displayMessageTimer = null;
 	}
 
 	SGT.initialize = initialize;

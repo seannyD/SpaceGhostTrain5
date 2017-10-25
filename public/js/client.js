@@ -7,8 +7,7 @@ var SGT = window.SGT || {};
 	}
 
 	function Client(eventHandlers) {
-		this.room = { row: 0, col: 0 };
-		this.roomColour = 'black';
+		this.room = { row: 0, col: 0, isFilled: false };
 		this.eventHandlers = eventHandlers;
 		this.ws = openWebSocket();
 		this.ws.onmessage = this._handleMessage.bind(this);
@@ -32,10 +31,13 @@ var SGT = window.SGT || {};
 		this._emit('roomChanged', room);
 	}
 
-	Client.prototype.setRoomColour = function(isFilled, flash) {
-		this.isFilled = isFilled;
-		this.flash = flash;
-		this._emit('colourChanged', {isFilled:isFilled, flash:flash});
+	Client.prototype.setRoomColour = function(isFilled) {
+		this.room.isFilled = isFilled;
+		this._emit('setRoomColour', isFilled);
+	}
+
+	Client.prototype.flash = function() {
+		this._emit('flash');
 	}
 
 	Client.prototype.notifyOfInvalidPassword = function() {
@@ -63,9 +65,11 @@ var SGT = window.SGT || {};
 
 	function buildMessageFromJson(json) {
 		var cmd = JSON.parse(json);
+		console.log(cmd);
 		switch (cmd.name) {
 			case 'move':   return new MoveMessage(cmd);
-			case 'colour': return new ColourMessage(cmd);
+			case 'room-state': return new RoomStateMessage(cmd);
+			case 'flash': return new FlashMessage(cmd);
 			case 'invalid-password': return new InvalidPasswordMessage();
 			case 'win': return new WinMessage();
 		}
@@ -75,21 +79,26 @@ var SGT = window.SGT || {};
 		this.row = cmd.row;
 		this.col = cmd.col;
 		this.isFilled = cmd.isFilled;
-		this.flash = cmd.flash;
 	}
 
 	MoveMessage.prototype.apply = function(client) {
 		client.setRoom({ row: this.row, col: this.col });
-		client.setRoomColour(this.isFilled, this.flash);
+		client.setRoomColour(this.isFilled);
 	};
 
-	function ColourMessage(cmd) {
-		this.isFilled = cmd.isFilled;
-		this.flash = cmd.flash;
+	function RoomStateMessage(cmd) {
+		this.state = cmd.state;
 	}
 
-	ColourMessage.prototype.apply = function(client) {
-		client.setRoomColour(this.isFilled, this.flash);
+	RoomStateMessage.prototype.apply = function(client) {
+		client.setRoomColour(this.state.isFilled);
+	};
+
+	function FlashMessage(cmd) {
+	}
+
+	FlashMessage.prototype.apply = function(client) {
+		client.flash();
 	};
 
 	function InvalidPasswordMessage() {
