@@ -57,6 +57,10 @@ var SGT = window.SGT || {};
 		elements.videoPlayer.addEventListener('ended', videoEnded, false);
 
 		watchPassword();
+
+		// Reveal the body once the CSS has had time to load so that we avoid a
+		// flash of unstyled content.
+		document.body.style.display = "block";
 	}
 
 	function watchPassword() {
@@ -159,7 +163,7 @@ var SGT = window.SGT || {};
 		// Load the video and show it
 		videoPlayer.load();
 		// elements.video is the surrounding div for the player
-		elements.video.style.display = "inline";
+		toggleHidden(elements.video, false);
 		videoPlayer.play();
 	}
 
