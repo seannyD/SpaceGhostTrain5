@@ -65,7 +65,6 @@ var SGT = window.SGT || {};
 
 	function buildMessageFromJson(json) {
 		var cmd = JSON.parse(json);
-		console.log(cmd);
 		switch (cmd.name) {
 			case 'move':   return new MoveMessage(cmd);
 			case 'room-state': return new RoomStateMessage(cmd);
