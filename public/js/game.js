@@ -41,6 +41,7 @@ var SGT = window.SGT || {};
 			'endScreen': document.getElementById('EndScreen'),
 			'room': document.getElementById('room'),
 			'message': document.getElementById('message'),
+			'passwordForm': document.getElementById('password-form'),
 			'password': document.getElementById('password'),
 			'map': document.getElementById('map'),
 			'videoPrompt': document.getElementById('video-prompt'),
@@ -67,13 +68,11 @@ var SGT = window.SGT || {};
 	}
 
 	function watchPassword() {
-		var passwordEl = elements.password;
-		passwordEl.onkeyup = function(ev) {
+		elements.passwordForm.onsubmit = function(ev) {
 			ev = ev || window.event;
-			if (ev.keyCode === 13 && client) {
-				client.guessPassword(passwordEl.value);
-			}
-		}
+			client.guessPassword(elements.password.value);
+			return false;
+		};
 	}
 
 	function watchVideoPrompt() {
