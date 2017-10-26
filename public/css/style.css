@@ -226,13 +226,26 @@ body.filled .arrow-right {
 
 #video-prompt-msg {
 	margin: 10vh 10vw;
-	font-size: 4vh;
+	font-size: 5vh;
 	color: white;
 }
 
 #video-prompt-light {
-	width: 40vw;
-	height: 40vw;
+	width: 30vw;
+	height: 30vw;
+	animation: pulse 2.3s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0% {
+		transform: scale(1);
+  }
+  50% {
+		transform: scale(1.4);
+  }
+  100% {
+		transform: scale(1);
+  }
 }
 
 #video {
