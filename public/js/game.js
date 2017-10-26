@@ -43,6 +43,7 @@ var SGT = window.SGT || {};
 			'message': document.getElementById('message'),
 			'password': document.getElementById('password'),
 			'map': document.getElementById('map'),
+			'videoPrompt': document.getElementById('video-prompt'),
 			'video': document.getElementById('video'),
 			'videoPlayer': document.getElementById('video-player'),
 		};
@@ -58,6 +59,7 @@ var SGT = window.SGT || {};
 		elements.videoPlayer.addEventListener('ended', videoEnded, false);
 
 		watchPassword();
+		watchVideoPrompt();
 
 		// Reveal the body once the CSS has had time to load so that we avoid a
 		// flash of unstyled content.
@@ -72,6 +74,13 @@ var SGT = window.SGT || {};
 				client.guessPassword(passwordEl.value);
 			}
 		}
+	}
+
+	function watchVideoPrompt() {
+		elements.videoPrompt.onclick = function(ev) {
+			ev = ev || window.event;
+			playVideo();
+		};
 	}
 
 	function handleRoomChange(newRoom) {
@@ -143,23 +152,23 @@ var SGT = window.SGT || {};
 
 	function handleWin() {
 		clearPassword();
-		playVideo();
+		promptVideo();
+	}
+
+	function promptVideo() {
+		toggleHidden(elements.videoPrompt, false);
 	}
 
 	function playVideo() {
-		// the video that relates to the room
 		var vidNum = roomVideoNumbers[client.room.row][client.room.col];
-		// change the video source
-		var videoPlayer = elements.videoPlayer;
-		var sources = videoPlayer.getElementsByTagName('source');
+		var sources = elements.videoPlayer.getElementsByTagName('source');
 		sources[0].src = "videos/"+vidNum+".mp4";
 		sources[1].src = "videos/"+vidNum+".ogg";
 
-		// Load the video and show it
-		videoPlayer.load();
-		// elements.video is the surrounding div for the player
+		elements.videoPlayer.load();
 		toggleHidden(elements.video, false);
-		videoPlayer.play();
+		toggleHidden(elements.videoPrompt, true);
+		elements.videoPlayer.play();
 	}
 
 	function videoEnded(){
